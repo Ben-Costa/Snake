@@ -1,0 +1,18 @@
+/* styles.css */
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #222;
+}
+
+#board {
+    background-color: green;
+    border: 0.1px solid black;
+    display: grid; /* Add grid display */
+    grid-template-columns: repeat(17, 1fr); /* Create 17 columns */
+    grid-template-rows: repeat(17, 1fr); /* Create 17 rows */
+}
