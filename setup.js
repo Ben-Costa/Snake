@@ -1,4 +1,39 @@
-import Board from Board.js
+// import { Board } from '/Board.js'; // Adjust the path as needed
+// const blockSize = 20;
+// const totalRows = 17;
+// const totalCols = 17;
+
+
+// window.onload = function () {
+//     //create board data object
+//     let gameBoard = new Board(totalCols, totalRows, blockSize)    
+//     gameBoard.run()
+//     //2d array size of rows and columns
+//         //handles drawing of board and objects
+//         //draw snake
+//         //draw food
+//         //game over screen
+//     //create snake object
+//         //array of dicts
+//         //direction
+//         //move
+//     //create event handler
+//     //game
+//         //start game if press button
+//         //keep score
+//         //check if dead
+//         //check if good
+//         //pass events results to snake
+    
+    
+// };
+
+// function update(){
+    
+// }
+
+
+
 
 const blockSize = 20;
 const totalRows = 17;
@@ -6,11 +41,10 @@ const totalCols = 17;
 
 
 window.onload = function () {
-    i = 0
+    let i = 0
 
     //create board data object
-    gameBoard = new Board()    
-    //2d array size of rows and columns
+        //2d array size of rows and columns
         //handles drawing of board and objects
         //draw snake
         //draw food
@@ -27,10 +61,10 @@ window.onload = function () {
         //check if good
         //pass events results to snake
 
-    board = document.getElementById("board");
+    let board = document.getElementById("board");
     board.height = totalRows * blockSize;
     board.width = totalCols * blockSize;
-    context = board.getContext("2d");
+    let context = board.getContext("2d");
     
     setInterval(update, 1000/10)
 
@@ -68,6 +102,3 @@ function drawGrid() {
         context.stroke();
     }
 }
-
-
-
