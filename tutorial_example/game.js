@@ -3,25 +3,26 @@ import { Snake } from "./snake.js"
 let lastRenderTime = 0
 const gridContainer = document.getElementById('game-board')
 
-let snake = new Snake([[11,10]])
+let snake = new Snake([[11,10], [12,10], [13,10]])
 
 function main(currentTime) {
     window.requestAnimationFrame(main)
     const secondsSinceRender = (currentTime - lastRenderTime)/1000
+
     if (secondsSinceRender < 1 / snake.getSnakeSpeed()){
         return
     }
-
-    console.log(snake.getSnakePositionList())
-
-    setTimeout(console.log('wait'), 30000)
-
-    snake.updateSnakeLocation([1,0], 2)
     
     drawFood()
     drawSnake(snake)
 
+    console.log('starting snake')
+    console.log(snake.getSnakePositionList())
+
+    snake.updateSnakeLocation([-1,1], 1)
     
+    console.log('snake updated location')
+    console.log(snake.getSnakePositionList())
 
     // update()
     // draw()

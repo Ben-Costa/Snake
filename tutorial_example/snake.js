@@ -18,25 +18,22 @@ class Snake {
         return this.snakePositionList
     }
 
+    getSnakeLength(){
+        return this.getSnakePositionList().length
+    }
+
     updateSnakeLocation(direction, speed) {
-        console.log(this.getSnakePositionList())
-        let movement = multiplyArrayElements(direction, speed)
-        console.log(movement)
 
-        if (this.getSnakePositionList().length === 1){
-            this.getSnakePositionList[0] = head.map((value, index) => value + movement[index]);
-        }
-        else{
-            this.snakePositionList.pop()
+        let movement = [direction[0] * speed, direction[1] * speed]
 
-            let head = this.snakePositionList[0]
-            head = head.map((value, index) => value + movement[index]);
-            
-            this.snakePositionList.unshift(head)
+        for(let i = this.getSnakeLength() - 2; i >= 0; i--){
+            console.log()
+            this.snakePositionList[i + 1] = { ...this.snakePositionList[i] }
         }
 
-
-    }   
+        this.snakePositionList[0][0] += movement[0]
+        this.snakePositionList[0][1] += movement[1]
+    }
 }
 
 
