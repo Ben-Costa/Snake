@@ -17,6 +17,16 @@ body {
     grid-template-columns: repeat(21, 1fr);
 }
 
+#gameOverMessage {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 24px;
+    color: red;
+    display: none; /* Initially hidden */
+}
+
 .snake {
     background-color: hsl(200, 100%, 50%);
     border: .25vmin solid black;

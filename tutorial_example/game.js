@@ -3,7 +3,10 @@ import { getInputDirection } from "./EventHandler.js"
 
 let lastRenderTime = 0
 const gridContainer = document.getElementById('game-board')
-let snake = new Snake([[11,10], [12,10], [13,10]])
+const boardCols = window.getComputedStyle(gridContainer).gridTemplateColumns.split(' ').length;
+const boardRows = window.getComputedStyle(gridContainer).gridTemplateRows.split(' ').length;
+
+let snake = new Snake([[11,10]])
 let start = true
 
 function main(currentTime) {
@@ -15,7 +18,6 @@ function main(currentTime) {
     }
 
     let direction = getInputDirection()    
-    console.log(direction)
 
     if(direction[0] != 0 || direction[1] != 0){
         start = false
@@ -23,11 +25,22 @@ function main(currentTime) {
 
     drawSnake(snake)
     drawFood()
-    
+
     if (!start){
         console.log('triggered')
         snake.updateSnakeLocation(direction, 1)
     }
+
+    //check if out of bounds
+    console.log(snake.getSnakePositionList())
+    if (snake.getSnakePositionList()[0][0] < 0 || 
+        snake.getSnakePositionList()[0][0] > boardRows ||
+        snake.getSnakePositionList()[0][1] < 0 || 
+        snake.getSnakePositionList()[0][1] > boardCols){
+            document.getElementById('gameOverMessage').style.display = 'block';
+             
+    }
+    //check if food 
 
     lastRenderTime = currentTime
 }
