@@ -11,15 +11,18 @@ import { getInputDirection } from "./EventHandler.js"
 import { Food } from "./food.js"
 
 let lastRenderTime = 0
+let gameOver = false
 const gridContainer = document.getElementById('game-board')
 const boardCols = window.getComputedStyle(gridContainer).gridTemplateColumns.split(' ').length;
 const boardRows = window.getComputedStyle(gridContainer).gridTemplateRows.split(' ').length;
 
-let snake = new Snake([[11,10],[10,10],[9,10],[8,10],[7,10],[6,10]])
+//let snake = new Snake([[11,10],[10,10],[9,10],[8,10],[7,10],[6,10]])
+let snake = new Snake([[11,10]])
 let start = true
 let food = new Food([], snake.getSnakePositionList(), boardRows, boardCols)
 
 function main(currentTime) {
+    if (gameOver) return
     window.requestAnimationFrame(main)
     const secondsSinceRender = (currentTime - lastRenderTime)/250
 
@@ -36,30 +39,34 @@ function main(currentTime) {
     }
 
     //check if snake eat self
-    if(snake.snakeEatSelf()){
-        document.getElementById('gameOverMessage').style.display = 'block';
-        return 
-    }
 
     if (!start){
         snake.updateSnakeLocation(direction, 1)
     }
 
+    let boolcheck = snake.snakeEatSelf()
+    console.log(boolcheck)
+    if(boolcheck){
+        document.getElementById('gameOverMessage').style.display = 'block';
+        gameOver = true
+        return 
+    }
+
     //check if out of bounds
-    if (snake.getSnakePositionList()[0][0] < 0 || 
+    if (snake.getSnakePositionList()[0][0] < 1 || 
         snake.getSnakePositionList()[0][0] > boardRows ||
-        snake.getSnakePositionList()[0][1] < 0 || 
+        snake.getSnakePositionList()[0][1] < 1 || 
         snake.getSnakePositionList()[0][1] > boardCols){
             document.getElementById('gameOverMessage').style.display = 'block';
+            gameOver = true
             return 
     }
 
-    
    // check if snake eat food
    let foodPosition = food.getPosition()
    let snakePositionList = snake.getSnakePositionList()
-    
-    if(food.checkIfSnakeIsPresent(foodPosition, snakePositionList)){
+   let eatenCheck = food.checkIfSnakeIsPresent(foodPosition, snakePositionList)
+   if (eatenCheck){
         snake.grow()
         food.update(snakePositionList)
     }
@@ -75,7 +82,6 @@ function main(currentTime) {
 }
 
 function drawSnake(snake) {
-    console.log(snake)
     gridContainer.innerHTML = ''
     snake.getSnakePositionList().forEach(element => {
         const drawsnakesnake = document.createElement("div");
@@ -88,12 +94,10 @@ function drawSnake(snake) {
 
 function drawFood(foodobjectt) {
     const foodElement = document.createElement("div");
-    console.log("fooditem: ")
-    console.log(foodobjectt)
     let postion = foodobjectt.getPosition()
     foodElement.classList.add("grid-item", "food"); // Add CSS class if needed
-    foodElement.style.gridColumn = postion[1]; // Set column position (1-based index)
-    foodElement.style.gridRow = postion[0]; // Set row position (1-based index)
+    foodElement.style.gridColumn = postion[0]; // Set column position (1-based index)
+    foodElement.style.gridRow = postion[1]; // Set row position (1-based index)
     gridContainer.appendChild(foodElement);
 }
 

@@ -25,7 +25,6 @@ class Snake {
 
     updateSnakeLocation(direction, speed) {
         const movement = [direction[0] * speed, direction[1] * speed]
-        console.log("movement:"+ movement)
         for(let i = this.getSnakeLength() - 2; i >= 0; i--){
             this.snakePositionList[i + 1] = [ ...this.snakePositionList[i] ];
         }
